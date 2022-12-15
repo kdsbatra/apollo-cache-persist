@@ -13,7 +13,7 @@ export type PersistenceMapperFunction = (data: any) => Promise<any>;
 export type PersistedData<T> = T | string | null;
 
 export interface PersistentStorage<T> {
-  getItem: (key: string) => Promise<T | null> | T | null;
+  getItem: (key: string) => Promise<T | null | undefined> | T | null;
   setItem: (key: string, value: T) => Promise<T> | Promise<void> | void | T;
   removeItem: (key: string) => Promise<T> | Promise<void> | void;
 }

@@ -46,6 +46,6 @@ export class MMKVStorageWrapper implements PersistentStorage<string | null> {
 interface MMKVStorageInterface {
   // Actual type definition: https://github.com/ammarahm-ed/react-native-mmkv-storage/blob/master/index.d.ts#L27
   getItem(key: string): Promise<string | null | undefined>;
-  setItem(key: string, value: string): Promise<boolean | undefined>;
-  removeItem(key: string): boolean | undefined | Promise<boolean | undefined>;
+  setItem(key: string, value: string): Promise<boolean | null | undefined>;
+  removeItem(key: string): boolean | null | undefined;
 }

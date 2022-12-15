@@ -1,8 +1,13 @@
 import MockStorage from '../__mocks__/MockStorage';
 import Storage from '../Storage';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
 
 describe('Storage', () => {
+  const client = new ApolloClient<any>({
+    cache: new InMemoryCache(),
+  });
   const storage = new Storage({
+    cache: client.cache,
     storage: new MockStorage(),
   });
 
@@ -14,20 +19,20 @@ describe('Storage', () => {
   });
 
   describe('when data is an object', () => {
-    it ('writes an object to persistent storage', async () => {
+    it('writes an object to persistent storage', async () => {
       const obj = {
-        yo: 'yo yo'
-      }
+        yo: 'yo yo',
+      };
 
       await expect(storage.write(obj)).resolves.toBe(undefined);
       await expect(storage.read()).resolves.toBe(obj);
-    })
-  })  
+    });
+  });
 
   describe('when data is a string', () => {
-    it ('writes a string to persistent storage', async () => {
+    it('writes a string to persistent storage', async () => {
       await expect(storage.write('yo yo yo')).resolves.toBe(undefined);
       await expect(storage.read()).resolves.toBe('yo yo yo');
-    })
-  })
+    });
+  });
 });
