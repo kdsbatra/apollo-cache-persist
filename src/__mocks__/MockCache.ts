@@ -1,8 +1,9 @@
+import { ApolloCache } from '@apollo/client';
 import Cache from '../Cache';
 import { ApolloPersistOptions, PersistedData } from '../types';
 
 export default class MockCache<T> implements Cache<T> {
-  cache: null;
+  cache: ApolloCache<T>;
   serialize: boolean;
   data: PersistedData<T>;
 

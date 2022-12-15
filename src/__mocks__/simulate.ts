@@ -1,18 +1,25 @@
 import {
+  ApolloCache,
   ApolloClient,
   ApolloLink,
   InMemoryCache,
   Observable,
 } from '@apollo/client/core';
 
-import { persistCache } from '../';
+import { persistCache, PersistentStorage } from '../';
 import MockStorage from './MockStorage';
+
+type TSimulateType = {
+  result: any;
+  operation: any;
+  persistOptions?: any;
+}
 
 export const simulateApp = async ({
   result,
   operation,
   persistOptions = {},
-}) => {
+}: TSimulateType) => {
   const storage = persistOptions.storage || new MockStorage();
   const cache = persistOptions.cache || new InMemoryCache();
 
@@ -38,9 +45,9 @@ export const simulateWrite = async ({
   result,
   operation,
   persistOptions = {},
-}) => {
-  const storage = persistOptions.storage || new MockStorage();
-  const cache = persistOptions.cache || new InMemoryCache();
+}:TSimulateType) => {
+  const storage = persistOptions?.storage || new MockStorage();
+  const cache = persistOptions?.cache || new InMemoryCache();
 
   await persistCache({ ...persistOptions, cache, storage });
 

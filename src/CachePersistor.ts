@@ -17,22 +17,22 @@ export default class CachePersistor<T> {
     if (!options.cache) {
       throw new Error(
         'In order to persist your Apollo Cache, you need to pass in a cache. ' +
-          'Please see https://www.apollographql.com/docs/react/basics/caching.html for our default InMemoryCache.'
+          'Please see https://www.apollographql.com/docs/react/basics/caching.html for our default InMemoryCache.',
       );
     }
 
     if (!options.storage) {
       throw new Error(
         'In order to persist your Apollo Cache, you need to pass in an underlying storage provider. ' +
-          'Please see https://github.com/apollographql/apollo-cache-persist#storage-providers'
+          'Please see https://github.com/apollographql/apollo-cache-persist#storage-providers',
       );
     }
 
-    const log = new Log(options);
-    const cache = new Cache(options);
-    const storage = new Storage(options);
-    const persistor = new Persistor({ log, cache, storage }, options);
-    const trigger = new Trigger({ log, persistor }, options);
+    const log = new Log<T>(options);
+    const cache = new Cache<T>(options);
+    const storage = new Storage<T>(options);
+    const persistor = new Persistor<T>({ log, cache, storage }, options);
+    const trigger = new Trigger<T>({ log, persistor }, options);
 
     this.log = log;
     this.cache = cache;

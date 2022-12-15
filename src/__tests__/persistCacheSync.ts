@@ -7,6 +7,7 @@ import {
   InMemoryCache,
 } from '@apollo/client/core';
 import gql from 'graphql-tag';
+import { ApolloPersistOptions } from '../types';
 
 jest.useFakeTimers();
 describe('persistCacheSync', () => {
@@ -21,7 +22,7 @@ describe('persistCacheSync', () => {
       const storage = new MockStorageSync();
       const cache = new InMemoryCache();
 
-      const persistOptions = { cache, storage };
+      const persistOptions: ApolloPersistOptions<any> = { cache, storage };
       const cachePersistor = new SynchronousCachePersistor(persistOptions);
 
       const link = new ApolloLink(() => Observable.of(result));

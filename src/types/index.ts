@@ -18,13 +18,13 @@ export interface PersistentStorage<T> {
   removeItem: (key: string) => Promise<T> | Promise<void> | void;
 }
 
-type StorageType<T, TSerialize extends boolean> = TSerialize extends true
+type StorageType<T, TSerialize extends boolean> = TSerialize extends boolean
   ? PersistentStorage<string>
   : PersistentStorage<T>;
 
 export interface ApolloPersistOptions<
   TSerialized,
-  TSerialize extends boolean = true
+  TSerialize extends boolean = boolean
 > {
   cache: ApolloCache<TSerialized>;
   storage: StorageType<PersistedData<TSerialized>, TSerialize>;

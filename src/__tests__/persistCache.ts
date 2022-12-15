@@ -10,7 +10,10 @@ describe('persistCache', () => {
   describe('setup', () => {
     it('requires a cache', async () => {
       try {
-        await persistCache({ storage: new MockStorage() });
+        await persistCache({
+          cache: undefined as any,
+          storage: new MockStorage(),
+        });
         fail('invoking persistCache without a cache should throw an error');
       } catch (e) {
         expect(() => {
@@ -20,7 +23,10 @@ describe('persistCache', () => {
     });
     it('requires storage', async () => {
       try {
-        await persistCache({ cache: new InMemoryCache() });
+        await persistCache({
+          cache: new InMemoryCache(),
+          storage: undefined as any,
+        });
         fail('invoking persistCache without storage should throw an error');
       } catch (e) {
         expect(() => {
@@ -194,21 +200,23 @@ describe('persistCache', () => {
         }
       `;
 
-      const mappableResult = { data: {
-        user: {
-          id: 1,
-          first: 'Jane',
-          last: 'Doe',
-          __typename: 'User',
-        },
-        posts: [
-          {
+      const mappableResult = {
+        data: {
+          user: {
             id: 1,
-            title: 'Apollo is awesome',
-            __typename: 'Post',
+            first: 'Jane',
+            last: 'Doe',
+            __typename: 'User',
           },
-        ],
-      }};
+          posts: [
+            {
+              id: 1,
+              title: 'Apollo is awesome',
+              __typename: 'Post',
+            },
+          ],
+        },
+      };
 
       await simulateWrite({
         result: mappableResult,

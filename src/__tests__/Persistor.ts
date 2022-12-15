@@ -3,12 +3,26 @@ import MockCache from '../__mocks__/MockCache';
 import Persistor from '../Persistor';
 import Storage from '../Storage';
 import Log from '../Log';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { MMKVStorageWrapper, MMKVWrapper } from '../storageWrappers';
 
 describe('Persistor', () => {
-  const cache = new MockCache({ serialize: false });
-  const storage = new Storage({ storage: new MockStorage() });
+  const client = new ApolloClient<any>({
+    cache: new InMemoryCache(),
+  });
+  const storage = new Storage({
+    cache: client.cache,
+    storage: new MockStorage(),
+  });
+
+  const cache = new MockCache({
+    serialize: false,
+    cache: client.cache,
+    storage: storage.storage,
+  });
+
   jest.spyOn(storage, 'write');
-  const persistor = new Persistor(
+  const persistor = new Persistor<string>(
     {
       log: new Log({ debug: false }),
       storage,
