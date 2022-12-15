@@ -4,21 +4,20 @@ import Persistor from '../Persistor';
 import Storage from '../Storage';
 import Log from '../Log';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
-import { MMKVStorageWrapper, MMKVWrapper } from '../storageWrappers';
 
 describe('Persistor', () => {
   const client = new ApolloClient<any>({
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache()
   });
   const storage = new Storage({
     cache: client.cache,
-    storage: new MockStorage(),
+    storage: new MockStorage()
   });
 
   const cache = new MockCache({
     serialize: false,
     cache: client.cache,
-    storage: storage.storage,
+    storage: storage.storage
   });
 
   jest.spyOn(storage, 'write');
@@ -26,9 +25,9 @@ describe('Persistor', () => {
     {
       log: new Log({ debug: false }),
       storage,
-      cache,
+      cache
     },
-    { maxSize: 100 },
+    { maxSize: 100 }
   );
 
   it('should not write more than maxSize', async () => {

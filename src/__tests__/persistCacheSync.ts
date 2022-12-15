@@ -4,7 +4,7 @@ import {
   ApolloClient,
   Observable,
   ApolloLink,
-  InMemoryCache,
+  InMemoryCache
 } from '@apollo/client/core';
 import gql from 'graphql-tag';
 import { ApolloPersistOptions } from '../types';
@@ -31,13 +31,13 @@ describe('persistCacheSync', () => {
 
       await client.query({ query: operation });
       jest.runTimersToTime(
-        persistOptions.debounce ? persistOptions.debounce + 1 : 1001,
+        persistOptions.debounce ? persistOptions.debounce + 1 : 1001
       );
 
       const cache2 = new InMemoryCache();
       const cachePersistor2 = new SynchronousCachePersistor({
         cache: cache2,
-        storage,
+        storage
       });
       cachePersistor2.restoreSync();
       const keys = Object.keys(cache2.extract());

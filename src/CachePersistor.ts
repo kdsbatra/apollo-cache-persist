@@ -17,14 +17,14 @@ export default class CachePersistor<T> {
     if (!options.cache) {
       throw new Error(
         'In order to persist your Apollo Cache, you need to pass in a cache. ' +
-          'Please see https://www.apollographql.com/docs/react/basics/caching.html for our default InMemoryCache.',
+          'Please see https://www.apollographql.com/docs/react/basics/caching.html for our default InMemoryCache.'
       );
     }
 
     if (!options.storage) {
       throw new Error(
         'In order to persist your Apollo Cache, you need to pass in an underlying storage provider. ' +
-          'Please see https://github.com/apollographql/apollo-cache-persist#storage-providers',
+          'Please see https://github.com/apollographql/apollo-cache-persist#storage-providers'
       );
     }
 

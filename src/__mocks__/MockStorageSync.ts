@@ -15,7 +15,7 @@ export default class MockStorageSync implements PersistentStorage<string> {
     this.storage.delete(key);
   }
 
-  getItem(key: string): any {
+  getItem(key: string): string | undefined {
     return this.storage.get(key);
   }
 }

@@ -12,7 +12,7 @@ describe('persistCache', () => {
       try {
         await persistCache({
           cache: undefined as any,
-          storage: new MockStorage(),
+          storage: new MockStorage()
         });
         fail('invoking persistCache without a cache should throw an error');
       } catch (e) {
@@ -25,7 +25,7 @@ describe('persistCache', () => {
       try {
         await persistCache({
           cache: new InMemoryCache(),
-          storage: undefined as any,
+          storage: undefined as any
         });
         fail('invoking persistCache without storage should throw an error');
       } catch (e) {
@@ -47,7 +47,7 @@ describe('persistCache', () => {
     it('extracts a previously filled InMemoryCache from storage', async () => {
       const [client, client2] = await simulateApp({
         operation,
-        result,
+        result
       });
       expect(client.extract()).toEqual(client2.extract());
     });
@@ -56,8 +56,8 @@ describe('persistCache', () => {
         operation,
         result,
         persistOptions: {
-          cache: new Hermes(),
-        },
+          cache: new Hermes()
+        }
       });
       expect(client.extract()).toEqual(client2.extract());
     });
@@ -88,18 +88,18 @@ describe('persistCache', () => {
             {
               title: 'Apollo is awesome',
               comments: [{ name: 'foo', __typename: 'Comment' }],
-              __typename: 'Post',
-            },
+              __typename: 'Post'
+            }
           ],
-          __typename: 'User',
-        },
-      },
+          __typename: 'User'
+        }
+      }
     };
 
     it('extracts a previously filled InMemoryCache from storage', async () => {
       const [client, client2] = await simulateApp({
         operation,
-        result,
+        result
       });
       expect(client.extract()).toEqual(client2.extract());
     });
@@ -108,8 +108,8 @@ describe('persistCache', () => {
         operation,
         result,
         persistOptions: {
-          cache: new Hermes(),
-        },
+          cache: new Hermes()
+        }
       });
       expect(client.extract()).toEqual(client2.extract());
     });
@@ -130,7 +130,7 @@ describe('persistCache', () => {
       await simulateWrite({
         result,
         operation,
-        persistOptions: { debounce, storage },
+        persistOptions: { debounce, storage }
       });
 
       expect(await storage.getItem('apollo-cache-persist')).toBe(undefined);
@@ -144,7 +144,7 @@ describe('persistCache', () => {
       await simulateWrite({
         result,
         operation,
-        persistOptions: { key, storage },
+        persistOptions: { key, storage }
       });
 
       jest.runTimersToTime(1001);
@@ -158,7 +158,7 @@ describe('persistCache', () => {
       await simulateWrite({
         result,
         operation,
-        persistOptions: { storage, maxSize: 20 },
+        persistOptions: { storage, maxSize: 20 }
       });
 
       jest.runTimersToTime(1001);
@@ -169,7 +169,7 @@ describe('persistCache', () => {
       await simulateWrite({
         result,
         operation,
-        persistOptions: { trigger: 'background', storage },
+        persistOptions: { trigger: 'background', storage }
       });
 
       jest.runTimersToTime(1001);
@@ -206,22 +206,22 @@ describe('persistCache', () => {
             id: 1,
             first: 'Jane',
             last: 'Doe',
-            __typename: 'User',
+            __typename: 'User'
           },
           posts: [
             {
               id: 1,
               title: 'Apollo is awesome',
-              __typename: 'Post',
-            },
-          ],
-        },
+              __typename: 'Post'
+            }
+          ]
+        }
       };
 
       await simulateWrite({
         result: mappableResult,
         operation: mappableOperation,
-        persistOptions: { storage, persistenceMapper },
+        persistOptions: { storage, persistenceMapper }
       });
 
       jest.runTimersToTime(1001);

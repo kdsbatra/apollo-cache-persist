@@ -4,11 +4,11 @@ import { ApolloClient, InMemoryCache } from '@apollo/client';
 
 describe('Storage', () => {
   const client = new ApolloClient<any>({
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache()
   });
   const storage = new Storage({
     cache: client.cache,
-    storage: new MockStorage(),
+    storage: new MockStorage()
   });
 
   it('writes, reads, & deletes data from persistent storage', async () => {
@@ -21,7 +21,7 @@ describe('Storage', () => {
   describe('when data is an object', () => {
     it('writes an object to persistent storage', async () => {
       const obj = {
-        yo: 'yo yo',
+        yo: 'yo yo'
       };
 
       await expect(storage.write(obj)).resolves.toBe(undefined);
